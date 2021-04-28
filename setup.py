@@ -5,10 +5,10 @@ setuptools.setup(
     version="0.0.1.dev",
     author="Raz Hoshia",
     author_email="razhoshia@gmail.com",
-    description="unoffical but usefull sklearn compatible encoders",
-    url="https://github.com/RazHoshia/MedTPOT", # FIXME change
+    description="unofficial but useful sklearn compatible encoders",
+    url="https://github.com/RazHoshia/unofficial_encoders",  # FIXME change
     project_urls={
-        "Bug Tracker": "https://github.com/RazHoshia/MedTPOT/issues", # FIXME change
+        "Bug Tracker": "https://github.com/RazHoshia/unofficial_encoders/issues",  # FIXME change
     },
     classifiers=[
         "Programming Language :: Python :: 3",
