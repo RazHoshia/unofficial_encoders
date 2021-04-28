@@ -33,20 +33,20 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         X = self.prepare_X(X)
-
-        for c in X.columns:
+        orig_cols = X.columns
+        for c in orig_cols:
             # TODO raise warning when there are to many unique values
             label_encoded_col = self.x_label_encoder_dict[c].transform(X[c])
             one_hot_cols = self.x_one_hot_encoder_dict[c].transform(label_encoded_col.reshape(-1, 1))
             one_hot_df = pd.DataFrame(one_hot_cols.toarray()).astype('uint8').add_prefix(f'{c}_').reset_index(drop=True)
             X = pd.concat([X, one_hot_df], axis=1)
 
-        X.drop(self.categoricals, axis=1, inplace=True)
+        X.drop(orig_cols, axis=1, inplace=True)
         return X
 
     @staticmethod
     def prepare_X(X) -> pd.DataFrame: # noqa
         if isinstance(X, pd.DataFrame):
-            return pd.DataFrame(X)
-        else:
             return X.copy()
+        else:
+            return pd.DataFrame(X)
