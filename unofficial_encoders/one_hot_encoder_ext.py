@@ -8,37 +8,23 @@ from unofficial_encoders.label_encoder_ext import LabelEncoderExt
 
 class OneHotEncoderExt(BaseEstimator, TransformerMixin):
 
-    def __init__(self, categorical_values=None):
+    def __init__(self):
         super().__init__()
-        self.categoricals = categorical_values
         self.x_label_encoder_dict = dict()
         self.x_one_hot_encoder_dict = dict()
         # using regular label encoder because its illegal to give the model labels that it didnt trained on
 
     def fit(self, X, y=None):
 
-        if not self.categoricals:
-            self.categoricals = [x for x in X.columns if X[x].dtype == 'object']
+        X = self.prepare_X(X)
 
-        if isinstance(X, pd.DataFrame):
-            X = pd.DataFrame(X)
-        else:
-            X = X.copy()
-
-        # fit label + one hot encoder
-        for c in self.categoricals:
+        for c in X.columns:
             # TODO raise warning when there are to many unique values
             self.x_label_encoder_dict[c] = LabelEncoderExt()
-            print(c)
-            label_encoded_col = self.x_label_encoder_dict[c].fit_transform(
-                X[c].astype(str))  # astype creates a class for nan values
+            label_encoded_col = self.x_label_encoder_dict[c].fit_transform(X[c])
             self.x_one_hot_encoder_dict[c] = OneHotEncoder(handle_unknown='ignore')
-            one_hot_cols = self.x_one_hot_encoder_dict[c].fit_transform(label_encoded_col.reshape(-1, 1))
-            one_hot_df = pd.DataFrame(one_hot_cols.toarray()).astype('uint8').add_prefix(f'{c}_').reset_index(drop=True)
-            X = pd.concat([X, one_hot_df], axis=1)
-            pass
+            self.x_one_hot_encoder_dict[c].fit(label_encoded_col.reshape(-1, 1))
 
-        X.drop(self.categoricals, axis=1, inplace=True)
         if y:
             # TODO raise warning that y will not be encoded
             pass
@@ -46,5 +32,21 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        X = X.copy()
+        X = self.prepare_X(X)
+
+        for c in X.columns:
+            # TODO raise warning when there are to many unique values
+            label_encoded_col = self.x_label_encoder_dict[c].transform(X[c])
+            one_hot_cols = self.x_one_hot_encoder_dict[c].transform(label_encoded_col.reshape(-1, 1))
+            one_hot_df = pd.DataFrame(one_hot_cols.toarray()).astype('uint8').add_prefix(f'{c}_').reset_index(drop=True)
+            X = pd.concat([X, one_hot_df], axis=1)
+
+        X.drop(self.categoricals, axis=1, inplace=True)
         return X
+
+    @staticmethod
+    def prepare_X(X) -> pd.DataFrame: # noqa
+        if isinstance(X, pd.DataFrame):
+            return pd.DataFrame(X)
+        else:
+            return X.copy()

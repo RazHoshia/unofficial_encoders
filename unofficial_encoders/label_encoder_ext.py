@@ -2,6 +2,7 @@
 based on https://stackoverflow.com/questions/21057621/sklearn-labelencoder-with-never-seen-before-values
 """
 
+import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -15,26 +16,35 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
         """
         self.label_encoder = LabelEncoder()
 
-    def fit(self, data_list):
+    def fit(self, X):
         """
         This will fit the unofficial_encoders for all the unique values and introduce unknown value
-        :param data_list: A list of string
+        :param X: A list of string
         :return: self
         """
-        self.label_encoder = self.label_encoder.fit(list(data_list) + ['Unknown'])
+        X = self.prepare_X(X)
+        self.label_encoder = self.label_encoder.fit(list(X) + ['Unknown'])
         self.classes_ = self.label_encoder.classes_
 
         return self
 
-    def transform(self, data_list):
+    def transform(self, X):
         """
         This will transform the data_list to id list where the new values get assigned to Unknown class
-        :param data_list:
+        :param X:
         :return:
         """
-        new_data_list = list(data_list)
-        for unique_item in np.unique(data_list):
+        X = self.prepare_X(X)
+        new_data_list = list(X)
+        for unique_item in np.unique(X):
             if unique_item not in self.label_encoder.classes_:
                 new_data_list = ['Unknown' if x == unique_item else x for x in new_data_list]
 
         return self.label_encoder.transform(new_data_list)
+
+    @staticmethod
+    def prepare_X(X):  # noqa
+        if isinstance(X, pd.DataFrame):  # astype creates a class for nan values
+            return X.astype(str)
+        else:
+            return pd.Series(X).astype(str)
