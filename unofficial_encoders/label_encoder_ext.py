@@ -2,10 +2,10 @@
 based on https://stackoverflow.com/questions/21057621/sklearn-labelencoder-with-never-seen-before-values
 """
 
-import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
+import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.preprocessing import LabelEncoder
 
 
 class LabelEncoderExt(BaseEstimator, TransformerMixin):
