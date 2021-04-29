@@ -1,4 +1,5 @@
 """
+NOT FULLY TESTED AND FOR INTERNAL USE ONLY!
 based on https://stackoverflow.com/questions/21057621/sklearn-labelencoder-with-never-seen-before-values
 """
 from collections.abc import Iterable
@@ -40,7 +41,7 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
             if unique_item not in self.label_encoder.classes_:
                 new_data_list = ['Unknown' if x == unique_item else x for x in new_data_list]
 
-        return self.label_encoder.transform(new_data_list)
+        return self.label_encoder.transform(new_data_list)  # TODO change to pd.series
 
     def _more_tags(self):
         return {

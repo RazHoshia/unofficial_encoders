@@ -86,5 +86,5 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
             raise ValueError('Encoder support only 2D numpy.ndarray and pandas.DataFrame and python Iterables. '
                              'sparse data is not supported')
 
-        X.fillna(value=np.nan, inplace=True)
-        return X
+        return X.fillna(value=np.nan)
+

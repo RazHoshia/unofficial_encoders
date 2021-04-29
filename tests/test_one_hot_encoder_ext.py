@@ -14,7 +14,7 @@ from unofficial_encoders import OneHotEncoderExt
             from_dtype(np.dtype('uint32')),
             from_dtype(np.dtype('str')),
             strategies.just(float('nan'))
-            ),
+        ),
         )
     )
 )
