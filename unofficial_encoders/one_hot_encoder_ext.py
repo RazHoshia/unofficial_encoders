@@ -3,8 +3,8 @@ from collections.abc import Iterable
 import numpy as np
 import pandas as pd
 import scipy
-from sklearn.exceptions import NotFittedError
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.exceptions import NotFittedError
 from sklearn.preprocessing import OneHotEncoder
 
 from .label_encoder_ext import LabelEncoderExt
@@ -71,9 +71,9 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
     def prepare_X(X) -> pd.DataFrame:  # noqa
         if hasattr(X, 'shape') and len(X.shape) == 1:
             raise ValueError(
-                f'Encoder expects 2D array. Reshape your data either using array. '
-                f'reshape(-1, 1) if your data has a single feature or array. '
-                f'reshape(1, -1) if it contains a single sample')
+                'Encoder expects 2D array. Reshape your data either using array. '
+                'reshape(-1, 1) if your data has a single feature or array. '
+                'reshape(1, -1) if it contains a single sample')
         elif hasattr(X, 'shape') and X.shape[1] == 0:
             raise ValueError(f'0 feature(s) (shape={X.shape}) while a minimum of 1 is required.')
         elif scipy.sparse.issparse(X):
@@ -87,4 +87,3 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
                              'sparse data is not supported')
 
         return X.fillna(value=np.nan)
-
