@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from sklearn.utils import estimator_checks
-from unofficial_encoders import OneHotEncoderExt, LabelEncoderExt
+from unofficial_encoders import LabelEncoderExt, OneHotEncoderExt
 
 
 @estimator_checks.parametrize_with_checks([LabelEncoderExt(), OneHotEncoderExt()])

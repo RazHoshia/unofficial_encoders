@@ -1,13 +1,14 @@
-import pytest
+from hypothesis import example, given, settings, strategies
+from hypothesis.extra.numpy import from_dtype
+from hypothesis.extra.pandas import data_frames
 import numpy as np
 import pandas as pd
-from hypothesis import given, example, strategies
-from hypothesis.extra.pandas import data_frames
-from hypothesis.extra.numpy import from_dtype
+import pytest
 
-from unofficial_encoders import OneHotEncoderExt
+from unofficial_encoders import OneHotEncoderExt  # noqa: I202
 
 
+@settings(deadline=None)  # TODO consider a limit
 @given(
     data_frames(
         rows=strategies.lists(elements=strategies.one_of(

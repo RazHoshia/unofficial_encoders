@@ -3,6 +3,7 @@ NOT FULLY TESTED AND FOR INTERNAL USE ONLY!
 based on https://stackoverflow.com/questions/21057621/sklearn-labelencoder-with-never-seen-before-values
 """
 from collections.abc import Iterable
+
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -61,4 +62,4 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
         elif hasattr(X, 'shape') and X.shape[1] != 1:
             raise ValueError('must be 1D array')
         else:
-            raise ValueError(f'X is not a 1D iterable')
+            raise ValueError('X is not a 1D iterable')

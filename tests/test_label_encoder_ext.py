@@ -1,10 +1,10 @@
-import pandas as pd
-import numpy as np
-from hypothesis import given, strategies, example
-from hypothesis.extra.pandas import series
+from hypothesis import example, given, strategies
 from hypothesis.extra.numpy import from_dtype
+from hypothesis.extra.pandas import series
+import numpy as np
+import pandas as pd
 
-from unofficial_encoders import LabelEncoderExt
+from unofficial_encoders import LabelEncoderExt  # noqa: I202
 
 
 @given(
