@@ -42,6 +42,15 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
 
         return self.label_encoder.transform(new_data_list)
 
+    def _more_tags(self):
+        return {
+            'preserves_dtype': [np.int],
+            'allow_nan': True,
+            'X_types': ['1dlabels'],
+            '_xfail_checks': {'check_complex_data': 'test',
+                              },
+        }
+
     @staticmethod
     def prepare_X(X):  # noqa
         if isinstance(X, pd.Series):

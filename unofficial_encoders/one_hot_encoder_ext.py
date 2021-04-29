@@ -57,7 +57,7 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
 
     def _more_tags(self):
         return {
-            'preserves_dtype': [],
+            'preserves_dtype': [np.uint8],
             'allow_nan': True,
             '_xfail_checks': {'check_complex_data': 'test',
                               'check_dtype_object': 'test',
