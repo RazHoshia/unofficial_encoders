@@ -1,4 +1,5 @@
 # Custom
+docs/build
 unofficial_encoders.egg-info
 .idea/
 titanic.csv

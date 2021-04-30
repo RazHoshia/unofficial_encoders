@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from unofficial_encoders import OneHotEncoderExt  # noqa: I202
+from unofficial_encoders.one_hot_encoder_ext import OneHotEncoderExt   # noqa: I202
 
 
 @settings(deadline=None)  # TODO consider a limit

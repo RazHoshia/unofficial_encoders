@@ -1,5 +1,7 @@
 import setuptools
 
+from unofficial_encoders import __version__
+
 setuptools.setup(
     name="unofficial_encoders",
     version="0.0.1.dev",
