@@ -12,6 +12,7 @@ Welcome to Unofficial Encoders's documentation!
 
    readme
    modules
+   licence
 
 Indices and tables
 ==================
