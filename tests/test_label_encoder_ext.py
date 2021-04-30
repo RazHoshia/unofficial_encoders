@@ -4,7 +4,7 @@ from hypothesis.extra.pandas import series
 import numpy as np
 import pandas as pd
 
-from unofficial_encoders import LabelEncoderExt  # noqa: I202
+from unofficial_encoders.label_encoder_ext import LabelEncoderExt  # noqa: I202
 
 
 @given(
