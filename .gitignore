@@ -2,7 +2,6 @@
 docs/build
 unofficial_encoders.egg-info
 .idea/
-titanic.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

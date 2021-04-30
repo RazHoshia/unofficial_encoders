@@ -7,11 +7,12 @@ Welcome to Unofficial Encoders's documentation!
 ===============================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
    readme
    modules
+   examples
    licence
 
 Indices and tables
