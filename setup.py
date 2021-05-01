@@ -4,7 +4,7 @@ from unofficial_encoders import __version__
 
 setuptools.setup(
     name="unofficial_encoders",
-    version="0.0.1.dev",
+    version=__version__,
     author="Raz Hoshia",
     author_email="razhoshia@gmail.com",
     description="unofficial but useful sklearn compatible encoders",
