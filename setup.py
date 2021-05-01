@@ -8,9 +8,9 @@ setuptools.setup(
     author="Raz Hoshia",
     author_email="razhoshia@gmail.com",
     description="unofficial but useful sklearn compatible encoders",
-    url="https://github.com/RazHoshia/unofficial_encoders",  # FIXME change
+    url="https://github.com/RazHoshia/unofficial_encoders",
     project_urls={
-        "Bug Tracker": "https://github.com/RazHoshia/unofficial_encoders/issues",  # FIXME change
+        "Bug Tracker": "https://github.com/RazHoshia/unofficial_encoders/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -61,7 +61,6 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
     @staticmethod
     def prepare_X(X):  # noqa
         """
-        Handles the encoder's input. Validate the input and change X to pandas.Series
         :param X: 1D Iterable that will be transformed into pandas.Series
         :type X: Iterable/pandas.Series/numpy.ndarray
         :return: X as pandas.Series
