@@ -78,7 +78,7 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
         return {
             'preserves_dtype': [np.uint8],
             'allow_nan': True,
-            '_xfail_checks': {'check_complex_data': 'test',
+            '_xfail_checks': {'check_complex_data': 'test',  # TODO replace test with a meaningful reason.
                               'check_dtype_object': 'test',
                               'check_transformer_data_not_an_array': 'test',
                               'check_transformer_preserve_dtypes': 'test does not support DataFrame output',
