@@ -104,7 +104,7 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
         elif scipy.sparse.issparse(X):
             raise ValueError('Sparse matrix is not supported.')
         elif isinstance(X, pd.DataFrame):
-            X = X.copy()
+            X = X.reset_index(drop=True)
         elif isinstance(X, np.ndarray) or isinstance(X, Iterable):
             X = pd.DataFrame(X)
         else:
