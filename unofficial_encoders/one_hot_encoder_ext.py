@@ -89,7 +89,6 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
     @staticmethod
     def prepare_X(X) -> pd.DataFrame:  # noqa
         """
-        Handles the encoder's input. Validate the input and change X to pandas.DataFrame
         :param X: 2D matrix that will be transformed into pandas.DataFrame
         :type X: Iterable/pandas.Series/numpy.ndarray
         :return: X as pandas.Dataframe
