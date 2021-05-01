@@ -1,3 +1,9 @@
+"""
+OneHotEncoderExt
+It differs from sklearn's OneHotEncoder by handling str values as input and ignoring new, unknown values.
+There is an addition column for Unknown values.
+"""
+
 from collections.abc import Iterable
 
 import numpy as np
@@ -12,11 +18,13 @@ from .label_encoder_ext import LabelEncoderExt
 
 class OneHotEncoderExt(BaseEstimator, TransformerMixin):
 
-    def __init__(self):
-        super().__init__()
-        # using regular label encoder because its illegal to give the model labels that it didnt trained on
-
     def fit(self, X, y=None):
+        """
+        :param X:  2D matrix of data to be encoded
+        :type X: pandas.DataFrame/numpy.ndarray
+        :return: Fitted OneHotEncoderExt for all the unique values.
+        :rtype: unofficial_encoders.one_hot_encoder_ext.OneHotEncoderExt
+        """
         self._x_label_encoder_dict = dict()
         self._x_one_hot_encoder_dict = dict()
         X = self.prepare_X(X)
@@ -36,6 +44,12 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
+        """
+        :param X:  2D matrix of data to be encoded
+        :type X: pandas.DataFrame/numpy.ndarray
+        :return: Transformed pandas.DataFrame. Each column in X is transformed into sparse columns in output.
+        :rtype: pandas.DataFrame
+        """
         if not hasattr(self, '_x_label_encoder_dict') or not hasattr(self, '_x_one_hot_encoder_dict') or not \
                 hasattr(self, '_orig_cols'):
             raise NotFittedError
@@ -56,6 +70,11 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
         return X
 
     def _more_tags(self):
+        """
+        :return: dict with skelarn test configuration.
+        see https://scikit-learn.org/stable/developers/develop.html#rolling-your-own-estimator
+        :rtype: dict
+        """
         return {
             'preserves_dtype': [np.uint8],
             'allow_nan': True,
@@ -69,6 +88,13 @@ class OneHotEncoderExt(BaseEstimator, TransformerMixin):
 
     @staticmethod
     def prepare_X(X) -> pd.DataFrame:  # noqa
+        """
+        Handles the encoder's input. Validate the input and change X to pandas.DataFrame
+        :param X: 2D matrix that will be transformed into pandas.DataFrame
+        :type X: Iterable/pandas.Series/numpy.ndarray
+        :return: X as pandas.Dataframe
+        :rtype: pandas.Dataframe
+        """
         if hasattr(X, 'shape') and len(X.shape) == 1:
             raise ValueError(
                 'Encoder expects 2D array. Reshape your data either using array. '

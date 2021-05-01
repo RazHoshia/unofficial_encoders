@@ -1,7 +1,7 @@
 """
 LabelEncoderExt
 It differs from sklearn's LabelEncoder by handling new classes and providing a value for it [Unknown]
-Unknown will be added in fit and transform will take care of new item. It gives unknown class id.
+Unknown values will be added in fit and transform will take care of new item. It gives unknown class id.
 
 based on https://stackoverflow.com/questions/21057621/sklearn-labelencoder-with-never-seen-before-values
 """
@@ -20,7 +20,7 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
         """
         :param X:  1D Iterable of data to be encoded
         :type X: Iterable/pandas.Series/numpy.ndarray
-        :return: Fitted LabelEncoderExt for all the unique values in X and unknown value
+        :return: Fitted LabelEncoderExt for all the unique values in X + unknown value
         :rtype: unofficial_encoders.label_encoder_ext.LabelEncoderExt
         """
         self.label_encoder = LabelEncoder()
@@ -36,7 +36,6 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
         :type X: Iterable/pandas.Series/numpy.ndarray
         :return: Transformed pandas.Series. X transformed encoded ids where the new values get assigned to Unknown class
         :rtype: numpy.ndarray
-
         """
         X = self.prepare_X(X)
         new_data_list = list(X)
@@ -62,10 +61,10 @@ class LabelEncoderExt(BaseEstimator, TransformerMixin):
     @staticmethod
     def prepare_X(X):  # noqa
         """
-        Handles the encoder's input. Validate the input and change X to pandas.Serie.
+        Handles the encoder's input. Validate the input and change X to pandas.Series
         :param X: 1D Iterable that will be transformed into pandas.Series
         :type X: Iterable/pandas.Series/numpy.ndarray
-        :return: X as pandas.Series.
+        :return: X as pandas.Series
         :rtype: pandas.Series
         """
         if isinstance(X, pd.Series):
